@@ -18,3 +18,5 @@ Roteiro de Integracao da Prova de Vida
 .. toctree::
    :maxdepth: 3
    :caption: Informações Técnicas
+
+   iniciarintegracao
