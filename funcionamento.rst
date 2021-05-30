@@ -40,8 +40,10 @@ Abaixo está uma descrição geral do procedimento da Prova de Vida.
     :align: center
     :alt:
 
-Para que a resposta da transação (serviço) realizada pela aplicação **cliente** mostre se o **usuário** autorizou ou não a Prova de Vida, o **usuário** precisa responder a solicitação no Aplicativo.
+**Observações:**
 
-As transações enviadas pela aplicação **cliente** também podem retornar informações de validação facial realizada anteriormente (**Selo Biométrico**). Dessa forma, a solicitação da prova de vida pode ser autorizada automaticamente, sem a necessidade do usuário fazer a validação facial após a solicitação. Nesse caso, a aplicação **cliente** cria a transação com verificação de **selo de Biometria Facial**. 
+- Para que a resposta da transação (serviço) realizada pela aplicação **cliente** mostre se o **usuário** autorizou ou não a Prova de Vida, o **usuário** precisa responder a solicitação no Aplicativo.
+
+- As transações enviadas pela aplicação **cliente** também podem retornar informações de validação facial realizada anteriormente (**Selo Biométrico**). Dessa forma, a solicitação da prova de vida pode ser autorizada automaticamente, sem a necessidade do usuário fazer a validação facial após a solicitação. Nesse caso, a aplicação **cliente** cria a transação com verificação de **selo de Biometria Facial**. 
 
 Na próxima seção, as formas de chamadas e parâmetros das transações são apresentados mais detalhadamente.
