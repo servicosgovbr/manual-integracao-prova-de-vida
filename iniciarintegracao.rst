@@ -41,7 +41,7 @@ Métodos e interfaces de integração
 Autenticação
 ------------
 
-Para que a autenticação aconteça, é preciso chamar serviço com intuito de adquirir um ticket de acesso (*token*) para os serviços protegidos da Prova de vida.
+Para que a autenticação aconteça, é preciso chamar serviço com intuito de adquirir um ticket de acesso (*token*) para os serviços protegidos da Prova de vida. O serviço de autenticação segue o padrão `OAuth 2.0`_ |site externo|.
 
 A requisição é feita através de um POST para o endereço: https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 
@@ -135,7 +135,7 @@ Exemplo de *body*:
 	} 
 
 
-Ao chamar o serviço, o pedido de autorização de transação é criado. O serviço retornará, em caso de sucesso, o código que identifica unicamente a transação (**UUID**), conforme exemplo:
+Ao chamar o serviço, o pedido de autorização de transação é criado e enviado para o usuário autorizar usando o App "Meu GovBr". O serviço retornará, em caso de sucesso, o código que identifica unicamente a transação (**UUID**), conforme exemplo:
 
 Response: **201**
 
@@ -243,7 +243,7 @@ Response: **201**
     }
   } 
 
-Como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo RESPOSTA.
+No exemplo acima, a transação **não** foi autorizada automaticamente. Portanto, o JSON retornado **não** apresenta o atributo RESPOSTA.
 
 
 Obter dados usando id das Transações
@@ -279,7 +279,7 @@ O resultado em formato JSON depende se o **id** utilizado for de uma `Transaçã
 Exemplos de Resultado:
 
 
-O atributo RESPOSTA do código JSON abaixo indica que o usuário já respondeu a autorização para realizar prova de vida e qual foi a resposta. Caso o usuário não tivesse respondido a autorização, o atributo RESPOSTA **não** estaria presente.
+- O atributo RESPOSTA do código JSON abaixo indica que o usuário já respondeu a autorização para realizar prova de vida e qual foi a resposta. Caso o usuário não tivesse respondido a autorização, o atributo RESPOSTA **não** estaria presente.
 
 
 Response: **200**
@@ -303,7 +303,7 @@ Response: **200**
   }
   } 
 
-O código JSON abaixo é um exemplo de resposta para um **id** cuja transação foi autorizada automaticamente.
+- O código JSON abaixo é um exemplo de resposta para um **id** cuja transação foi autorizada automaticamente.
 
 Response: **200**
 
@@ -355,13 +355,82 @@ Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta
 
   { 
   "remetente": {
-    "cnpj": "(CNPJ do orgão dono da aplicação cliente dos serviços da Prova de vida.)",
-    "nome": "(Nome do Orgão)"
+    "cnpj": "(CNPJ do orgão dono da aplicação cliente.)",
+    "nome": "(Nome do Orgão.)"
   },
-  "titulo": "(Título da mensagem a ser enviada para o usuário)",
-  "conteudo": "(Conteúdo da mensagem)",
+  "titulo": "(Título da mensagem a ser enviada para o usuário.)",
+  "conteudo": "(Conteúdo da mensagem.)",
   "tipo": "(Tipo da requisição. Padrão B)",
-  "cpf": "(CPF do usuário para o qual deseja enviar a mensagem)"
+  "cpf": "(CPF do usuário para o qual deseja enviar a mensagem.)"
+  } 
+
+
+Ao chamar o serviço, a mensagem é enviada para o usuário, que recebe via *push notification* no aplicativo "Meu GovBr". A mensagem pode ser enviada diretamente ao cidadão (CPF) ou enviada para todos (*broadcast*). Caso seja enviada para **todos**, o parâmetro “**cpf**” não deve ser informado na requisição.
+
+O serviço retornará, em caso de sucesso, o código que identifica unicamente a mensagem (**UUID**), conforme exemplo:
+
+Response: **201**
+
+**Body**
+
+{"7f000101-729a-1bab-8172-9a9c74160001"}
+
+A aplicação cliente, utilizando determinados serviços, pode utilizar o **id** da mensagem para receber informações sobre a mesma ou para deletá-la.
+
+Exemplos de requisição:
+
+* Recebe informações de mensagem enviada
+  
+  - GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
+
+.. raw:: html
+    
+   <br>  
+
+* Deleta mensagem enviada
+
+  - DELETE https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
+
+
+Resultados Esperados ou Erros do Acesso aos Serviços da Prova de Vida
+---------------------------------------------------------------------
+
+Como visto anteriormente, os acessos aos serviços (transações) da Prova de Vida ocorrem por meio de chamadas de URLs e as respostas são códigos presentes conforme padrão do protocolo HTTP por meio do retorno JSON. O retorno mostra o código de sucesso ou de erro e a respectiva descrição.
+
+Exemplos de códigos HTTP de sucesso:
+
+- **200**: Sucesso
+- **201**: Dado cadastrado com Sucesso, retornando o ID do dado
+
+.. raw:: html
+    
+   <br>  
+
+Exemplos de códigos HTTP de erro:
+
+- **400**: Algum dado informado incorretamente. Exemplo:
+
+.. code-block:: JSON
+
+  { 
+  "status": "BAD_REQUEST",
+  "message": "Argumentos não válidos",
+  "errors": {
+    "cpf": "número do registro de contribuinte individual brasileiro (CPF) inválido"
+    }
+  } 
+
+- **401**: Usuário não autenticado
+- **422**: Erro de validação na requisição. Exemplo:
+
+.. code-block:: JSON
+
+  { 
+  "timestamp": "2021-05-10T14:14:38.083677-03:00",
+  "status": 422,
+  "error": "Unprocessable Entity",
+  "message": "A não é um tipo válido [B,C]", 
+  "path": "/vbeta1/transacoes"
   } 
 
 
@@ -370,6 +439,8 @@ Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta
 .. _`codificador para Base64`: https://www.base64decode.org/
 .. _`Transação simplificada da Prova de vida`: iniciarintegracao.html#transacao-simplificada-da-prova-de-vida
 .. _`Transação com verificação do selo de Biometria Facial`: iniciarintegracao.html#transacao-com-verificacao-do-selo-de-biometria-facial
+.. _`OAuth 2.0`: https://oauth.net/2/
+
 
 
   

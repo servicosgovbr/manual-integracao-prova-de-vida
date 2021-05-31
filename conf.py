@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Roteiro de Integracao da Prova De Vida'
+project = 'Roteiro de Integracão da Prova De Vida'
 copyright = '2021, Guilherme'
 author = 'Guilherme'
 
