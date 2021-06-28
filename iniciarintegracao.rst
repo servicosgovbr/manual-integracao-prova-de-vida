@@ -4,7 +4,7 @@ Iniciando a Integração
 Procedimentos para a Integração
 +++++++++++++++++++++++++++++++
 
-Para utilização das transações da Prova de vida, há necessidade de liberar o ambiente de **homologação** para aplicação cliente possa utilizar. Essa liberação ocorre por meio do envio das informações listadas abaixo:
+A aplicação que irá consumir os serviços da API da Prova de vida deve estar **obrigatoriamente** integrada ao sistema do `Login Único`_ |site externo|. Além disso, há necessidade de liberar o ambiente de **homologação** para aplicação cliente possa utilizar. Essa liberação ocorre por meio do envio das informações listadas abaixo:
 
 
 * Credenciais de acesso aos serviços de Homologação
@@ -32,7 +32,7 @@ Para utilização das transações da Prova de vida, há necessidade de liberar 
 
   - Email do Google ou e-mail AppleID
 
-Essas informações deverão ser encaminhadas para os integrantes da Secretaria de Governança Digital (SGD) do Ministério da Economia (ME) por e-mail de um representante do órgão ou entidade. O representante ficará responsável pelas credenciais de acesso.
+Essas informações deverão ser encaminhadas para o e-mail: int-provavida-govbr@economia.gov.br, por um representante do órgão ou entidade. O representante ficará responsável pelas credenciais de acesso gerada por integrantes da Secretaria de Governança Digital (SGD) do Ministério da Economia (ME).
 
 
 Métodos e interfaces de integração
@@ -243,7 +243,7 @@ Response: **201**
     }
   } 
 
-No exemplo acima, a transação **não** foi autorizada automaticamente. Portanto, o JSON retornado **não** apresenta o atributo RESPOSTA.
+No exemplo acima, como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo RESPOSTA.
 
 
 Obter dados usando id das Transações
@@ -270,7 +270,6 @@ Parâmetros para GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transac
 **Variável**                  **Descrição**
 ----------------------------  ----------------------------------------------------------------------
 **Authorization**             No *header*, palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
-**Content-Type**              No *header*, tipo do conteúdo da requisição que está sendo enviada. Nesse caso estamos enviando como um *application/json*
 **idtransação**               **id** (*UUID*) da transação de prova de vida
 ============================  ======================================================================
 
@@ -392,7 +391,7 @@ Exemplos de requisição:
   - DELETE https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
 
 
-Resultados Esperados ou Erros do Acesso aos Serviços da Prova de Vida
+Resultados Esperados e Erros do Acesso aos Serviços da Prova de Vida
 ---------------------------------------------------------------------
 
 Como visto anteriormente, os acessos aos serviços (transações) da Prova de Vida ocorrem por meio de chamadas de URLs e as respostas são códigos presentes conforme padrão do protocolo HTTP por meio do retorno JSON. O retorno mostra o código de sucesso ou de erro e a respectiva descrição.
@@ -440,6 +439,7 @@ Exemplos de códigos HTTP de erro:
 .. _`Transação simplificada da Prova de vida`: iniciarintegracao.html#transacao-simplificada-da-prova-de-vida
 .. _`Transação com verificação do selo de Biometria Facial`: iniciarintegracao.html#transacao-com-verificacao-do-selo-de-biometria-facial
 .. _`OAuth 2.0`: https://oauth.net/2/
+.. _`Login Único`: https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
 
 
 
