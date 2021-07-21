@@ -4,7 +4,9 @@ Iniciando a Integração
 Procedimentos para a Integração
 +++++++++++++++++++++++++++++++
 
-A aplicação que irá consumir os serviços da API da Prova de vida deve estar **obrigatoriamente** integrada ao sistema do `Login Único`_ |site externo|. Além disso, há necessidade de liberar o ambiente de **homologação** para aplicação cliente possa utilizar. Essa liberação ocorre por meio do envio das informações listadas abaixo:
+É possível provar que um cidadão está vivo **sem** usar as transações (API) da Prova de vida. Nesse caso, utiliza-se o serviço do Login Único, o qual verifica quais selos de confiabilidade a conta do cidadão possui. Para realizar a Prova de vida dessa forma, a aplicação cliente deve estar **obrigatoriamente** integrada ao sistema do `Login Único`_ |site externo|. 
+
+Para provar a vida consumindo os serviços da API descrita nesta documentação, há necessidade de liberar o ambiente de **homologação** para que a aplicação cliente possa utilizar. Essa liberação ocorre por meio do envio das informações listadas abaixo:
 
 
 * Credenciais de acesso aos serviços de Homologação
@@ -156,7 +158,7 @@ A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão 
 
 Caso a Prova de vida **não** seja autorizada automaticamente, o usuário (cidadão) pode autorizar por confirmação ou por biometria facial no app "Meu Gov.Br".
 
-Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes
+Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
 =================  ======================================================================
 **Variável**       **Descrição**
@@ -165,7 +167,7 @@ Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbe
 **Authorization**  Palavra **Bearer** e o *access_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 =================  ======================================================================
 
-Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes
+Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
 .. code-block:: JSON
 
@@ -181,7 +183,8 @@ Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta
         "selogovbr_reuso_em": "(Intervalo de tempo em minutos anterior a data da transação)",
         "expiracao_em": "(Tempo de vida da transação em minutos)",
         "mensagem_falha": "(Mensagem apresentada ao usuário no caso de falha na Prova de vida)",
-        "mensagem_sucesso": "(Mensagem apresentada ao usuário no caso de sucesso na Prova de vida)"
+        "mensagem_sucesso": "(Mensagem apresentada ao usuário no caso de sucesso na Prova de vida)",
+        "categoria": "(Categoria da transação. Valor 'PV' para prova de vida ou valor 'OU' para outros tipos)"
   } 
 
 
@@ -201,7 +204,8 @@ Exemplo de *body*:
         "selogovbr_reuso_em": "999999",
         "expiracao_em": "120",
         "mensagem_falha": "Não foi possível confirmar a prova de vida, volte ao sistema XYZ para obter mais informações",
-        "mensagem_sucesso": "Sua prova de vida foi realizada com sucesso, volte ao sistema XYZ para continuar o processo de autorização"
+        "mensagem_sucesso": "Sua prova de vida foi realizada com sucesso, volte ao sistema XYZ para continuar o processo de autorização",
+        "categoria": "PV"
   } 
 
 Resultados esperados do Acesso à Transação com verificação do selo
@@ -211,7 +215,7 @@ A transação retornará, em caso de autorização automática com selo, no form
 
 Response: **201**
 
-.. figure:: _images/exemploRespReq.png
+.. figure:: _images/exemploRespReqVbeta3.png
    :align: center
    :alt: 
 
@@ -240,10 +244,13 @@ Response: **201**
        "disponivel": true,
        "data": "2019-02-15T15:34:51-03:00",
        "usado": false
-    }
+    },
+       "categoria": "PV"
   } 
 
 No exemplo acima, como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo RESPOSTA.
+
+No App "Meu GovBr", a transação da prova de vida pode ser negada. O motivo da negação pode ser porque o usuário **não** autorizou a validação facial ou porque ele não passou na validação. Caso o usuário não autorizar a validação facial, a transação, retornará, no formato JSON as informações conforme exemplo:
 
 
 Obter dados usando id das Transações
@@ -252,7 +259,7 @@ Obter dados usando id das Transações
 É possível fazer requisição para obter dados das Transações da Prova de vida usando o **id** (*UUID*) retornado pelos serviços:
 
 -  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/transacoes (**sem** verificação do selo)
--  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes (com verificação do selo)
+-  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes (com verificação do selo)
 
 Para acessar o serviço que disponibiliza os dados vinculados a uma determinada transação, a aplicação cliente deverá realizar uma requisição por meio do método GET à URL:
 https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes/{idtransacao}
@@ -261,10 +268,10 @@ Exemplo de requisição:
 
 .. code-block:: console
 
-  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7
+  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7
 
 
-Parâmetros para GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes/{idtransacao}
+Parâmetros para GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
 
 ============================  ======================================================================
 **Variável**                  **Descrição**
@@ -278,31 +285,43 @@ O resultado em formato JSON depende se o **id** utilizado for de uma `Transaçã
 Exemplos de Resultado:
 
 
-- O atributo RESPOSTA do código JSON abaixo indica que o usuário já respondeu a autorização para realizar prova de vida e qual foi a resposta. Caso o usuário não tivesse respondido a autorização, o atributo RESPOSTA **não** estaria presente.
+- O atributo RESPOSTA do código JSON abaixo indica que o usuário já respondeu a autorização e realizou a validação facial com sucesso. Caso o usuário **não** tivesse respondido a autorização, o atributo RESPOSTA **não** estaria presente.
 
 
 Response: **200**
 
 .. code-block:: JSON
 
+  .. code-block:: JSON
+
   { 
-    "id": "0a4f7059-78b3-1b16-8179-5746089d7fb7",
-    "solicitante": {
-    "cnpj": "Secretaria de Governo Digital",
-    "nome": "SERPRO",
-    "servico": "AppGovBr"
-  },
-    "motivo": "string",
-    "tipo": "B",
-    "criado_em": "2020-06-08T19:42:54-03:00",
-    "expiracao_em": "2020-06-08T23:42:54-03:00",
-    "resposta": {
-    "autorizado": true,
-    "data": "2020-06-08T22:31:45-03:00"
-  }
+    "id": "fb5g8247-95c1-2f23-9580-6813178c9bf8",
+       "solicitante": {
+       "cnpj": "33.683.111/0001-07",
+       "nome": "Secretaria de Governo Digital",
+       "servico": "AppGovBr"
+    },
+       "cpf": "01534562567",
+       "motivo": "solicitação de prova de vida para liberação de benefício",
+       "tipo": "B",
+       "criado_em": "2021-05-10T14:14:38.083677-03:00",
+       "selogovbr": {
+    
+       "reusar_apartir": "2019-06-16T03:35.083677-03:00",
+       "disponivel": true,
+       "data": "2021-04-23T15:34:51-03:00",
+       "usado": true
+    },
+       "resposta": {
+       "autorizado": true,
+       "data": "2021-05-10T15:37:38.083677-03:00"
+      },
+     "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
+     "categoria": "PV"
   } 
 
-- O código JSON abaixo é um exemplo de resposta para um **id** cuja transação foi autorizada automaticamente.
+
+No App "Meu GovBr", a transação da prova de vida também pode ser negada. O motivo da negação pode ser porque o usuário **não** autorizou a validação facial ou porque ele **não** passou na validação. Caso o usuário não autorizar a validação facial, a transação retornará, no formato JSON, as informações conforme exemplo:
 
 Response: **200**
 
@@ -319,7 +338,6 @@ Response: **200**
        "motivo": "solicitação de prova de vida para liberação de benefício",
        "tipo": "B",
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
-       "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
        "selogovbr": {
     
        "reusar_apartir": "2019-06-16T03:35.083677-03:00",
@@ -328,10 +346,19 @@ Response: **200**
        "usado": true
     },
        "resposta": {
-       "autorizado": true,
-       "data": "2021-05-10T14:14:38.083677-03:00"
-      }
-  } 
+       "autorizado": false,
+       "data": "2021-05-10T15:37:38.083677-03:00",
+       "motivo_negacao": 1
+      },
+    "expiracao_em": "2021-05-10T16:14:38.083677-03:00"
+  }
+
+O valor do atributo "motivo_negacao" é um número de 1 a 4. Abaixo estão os significados de cada número: 
+
+1 - Usuário escolheu não autorizar
+2 - Falha na validação biometria Facial
+3 - Falha na validação dados biográficos
+4 - Falha na validação de dados biometricos e biográficos
 
 Enviar mensagens para o usuário
 -------------------------------
