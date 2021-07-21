@@ -34,7 +34,7 @@ Para provar a vida consumindo os serviços da API descrita nesta documentação,
 
   - Email do Google ou e-mail AppleID
 
-Essas informações deverão ser encaminhadas para o e-mail: int-provavida-govbr@economia.gov.br, por um representante do órgão ou entidade. O representante ficará responsável pelas credenciais de acesso gerada por integrantes da Secretaria de Governança Digital (SGD) do Ministério da Economia (ME).
+Essas informações deverão ser encaminhadas para o e-mail: int-provavida-govbr@economia.gov.br, por um representante do órgão ou entidade. O representante ficará responsável pelas credenciais de acesso geradas por integrantes da Secretaria de Governança Digital (SGD) do Ministério da Economia (ME).
 
 
 Métodos e interfaces de integração
@@ -250,9 +250,6 @@ Response: **201**
 
 No exemplo acima, como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo RESPOSTA.
 
-No App "Meu GovBr", a transação da prova de vida pode ser negada. O motivo da negação pode ser porque o usuário **não** autorizou a validação facial ou porque ele não passou na validação. Caso o usuário não autorizar a validação facial, a transação, retornará, no formato JSON as informações conforme exemplo:
-
-
 Obter dados usando id das Transações
 ------------------------------------
 
@@ -262,7 +259,7 @@ Obter dados usando id das Transações
 -  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes (com verificação do selo)
 
 Para acessar o serviço que disponibiliza os dados vinculados a uma determinada transação, a aplicação cliente deverá realizar uma requisição por meio do método GET à URL:
-https://h.meugov.estaleiro.serpro.gov.br/api/vbeta2/transacoes/{idtransacao}
+https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
 
 Exemplo de requisição:
 
@@ -291,8 +288,6 @@ Exemplos de Resultado:
 Response: **200**
 
 .. code-block:: JSON
-
-  .. code-block:: JSON
 
   { 
     "id": "fb5g8247-95c1-2f23-9580-6813178c9bf8",
@@ -350,15 +345,16 @@ Response: **200**
        "data": "2021-05-10T15:37:38.083677-03:00",
        "motivo_negacao": 1
       },
-    "expiracao_em": "2021-05-10T16:14:38.083677-03:00"
+    "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
+    "categoria": "PV"
   }
 
-O valor do atributo "motivo_negacao" é um número de 1 a 4. Abaixo estão os significados de cada número: 
+O valor do atributo "motivo_negacao" é um número de 1 a 4. Abaixo estão os motivos de cada número: 
 
-1 - Usuário escolheu não autorizar
-2 - Falha na validação biometria Facial
-3 - Falha na validação dados biográficos
-4 - Falha na validação de dados biometricos e biográficos
+1 - Usuário escolheu não autorizar;
+2 - Falha na validação biometria Facial;
+3 - Falha na validação dados biográficos;
+4 - Falha na validação de dados biometricos e biográficos.
 
 Enviar mensagens para o usuário
 -------------------------------
@@ -386,7 +382,7 @@ Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta
   },
   "titulo": "(Título da mensagem a ser enviada para o usuário.)",
   "conteudo": "(Conteúdo da mensagem.)",
-  "tipo": "(Tipo da requisição. Padrão B)",
+  "tipo": "(Tipo da mensagem. Valor 'D' envia para um cpf específico, valor 'B' para broadcast)",
   "cpf": "(CPF do usuário para o qual deseja enviar a mensagem.)"
   } 
 
