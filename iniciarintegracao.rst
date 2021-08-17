@@ -80,79 +80,12 @@ Response: **200**
 	} 
 
 
+Transação da Prova de Vida
+---------------------------
 
-Transação simplificada da Prova de vida
-----------------------------------------
+A Transação da Prova de Vida é com suporte a resposta automática utilizando selo biométrico GovBr. A resposta da requisição contém informações sobre validação facial feita pelo usuário em um momento anterior à solicitação. Portanto, a solicitação de Prova de vida pode ser **autorizada** automaticamente. 
 
-A Transação é **sem** suporte a resposta automática utilizando selo biométrico GovBr. Ou seja, não apresenta na resposta informações sobre validação facial feita pelo usuário em um momento anterior à solicitação. Portanto, a solicitação de Prova de vida **não** pode ser autorizada automaticamente. 
-
-A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão é informado via *push notification* no aplicativo "Meu Gov.Br". Tem como retorno apenas o *UUID* da transação. 
-
-A autorização do usuário pode ser dada por confirmação ou por biometria facial no app "Meu Gov.Br".
-
-Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/transacoes
-
-=================  ======================================================================
-**Variável**  	   **Descrição**
------------------  ----------------------------------------------------------------------
-**Content-Type**   Tipo do conteúdo da requisição que está sendo enviada. Nesse caso estamos enviando como um *application/json*
-**Authorization**  Palavra **Bearer** e o *access_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
-=================  ======================================================================
-
-Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/transacoes
-
-.. code-block:: JSON
-
-	{ 
-	"solicitante": {
-          "cnpj": "(CNPJ do Solicitante.)",
-          "nome": "(Orgão Solicitante.)",
-          "servico": "(Nome do Serviço cliente.)"
-         },
-        "cpf": "(CPF do usuário que realizará a Prova de Vida.)",
-        "motivo": "(Motivo da Prova de Vida. Exemplo: Obter benefício previdenciário)",
-        "tipo": "(Tipo da solicitação. Padrão: 'B')",
-        "expiracao_em": "(Tempo de vida da transação em minutos)",
-        "mensagem_falha": "(Mensagem apresentada ao usuário no caso de falha na Prova de vida)",
-        "mensagem_sucesso": "(Mensagem apresentada ao usuário no caso de sucesso na Prova de vida)"
-	} 
-
-
-Exemplo de *body*:
-
-.. code-block:: JSON
-
-	{ 
-	"solicitante": {
-          "cnpj": "33.683.111/0001-07",
-          "nome": "Secretaria de Governo Digital",
-          "servico": "AppGovBr"
-         },
-        "cpf": "01534562567",
-        "motivo": "prova de vida para obtenção de selo",
-        "tipo": "B",
-        "expiracao_em": "120",
-        "mensagem_falha": "Não foi possível confirmar a prova de vida, volte ao sistema XYZ para obter mais informações",
-        "mensagem_sucesso": "Sua prova de vida foi realizada com sucesso, volte ao sistema XYZ para continuar o processo de autorização"
-	} 
-
-
-Ao chamar o serviço, o pedido de autorização de transação é criado e enviado para o usuário autorizar usando o App "Meu GovBr". O serviço retornará, em caso de sucesso, o código que identifica unicamente a transação (**UUID**), conforme exemplo:
-
-Response: **201**
-
-**Body**
-
-0a4f7059-78b3-1b16-8179-56713d547f8a
-
-
-Transação com verificação do selo de Biometria Facial
------------------------------------------------------
-
-A Transação é com suporte a resposta automática utilizando selo biométrico GovBr. A resposta da requisição contém informações sobre validação facial feita pelo usuário em um momento anterior à solicitação. Portanto, a solicitação de Prova de vida pode ser **autorizada** automaticamente. 
-
-Diferente da transação simplicada, a requisição **com verificação** do selo possui o parâmetro
-"**selogovbr_reuso_em**" no *body*. O valor desse parâmetro é o intervalo de tempo em minutos anterior a data da transação. A Prova de vida será autorizada **automaticamente** caso o usuário tiver feito a validação facial dentro desse intervalo.
+A requisição possui o parâmetro "**selogovbr_reuso_em**" no *body*. O valor desse parâmetro é o intervalo de tempo em minutos anterior a data da transação. A Prova de vida será autorizada **automaticamente** caso o usuário tiver feito a validação facial dentro desse intervalo.
 
 A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão é informado via *push notification* no aplicativo "Meu Gov.Br". 
 
@@ -208,8 +141,8 @@ Exemplo de *body*:
         "categoria": "PV"
   } 
 
-Resultados esperados do Acesso à Transação com verificação do selo
-------------------------------------------------------------------
+Resultados esperados do Acesso à Transação da Prova de Vida
+-----------------------------------------------------------
 
 A transação retornará, em caso de autorização automática com selo, no formato JSON, as informações conforme exemplo:
 
@@ -237,12 +170,12 @@ Response: **201**
        "motivo": "solicitação de prova de vida para liberação de benefício",
        "tipo": "B",
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
-       "expiracao_em": "2021-05-10T14:14:38.083677-03:00",
+       "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
        "selogovbr": {
     
-       "reusar_apartir": "2019-06-16T03:35.083677-03:00",
+       "reusar_apartir": "2021-04-10T14:38.083677-03:00",
        "disponivel": true,
-       "data": "2019-02-15T15:34:51-03:00",
+       "data": "2021-03-15T15:34:51-03:00",
        "usado": false
     },
        "categoria": "PV"
@@ -253,10 +186,9 @@ No exemplo acima, como a transação **não** foi autorizada automaticamente, o 
 Obter dados usando id das Transações
 ------------------------------------
 
-É possível fazer requisição para obter dados das Transações da Prova de vida usando o **id** (*UUID*) retornado pelos serviços:
+É possível fazer requisição para obter dados das Transações da Prova de vida usando o **id** (*UUID*) retornado pelo serviço:
 
--  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/transacoes (**sem** verificação do selo)
--  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes (com verificação do selo)
+-  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
 Para acessar o serviço que disponibiliza os dados vinculados a uma determinada transação, a aplicação cliente deverá realizar uma requisição por meio do método GET à URL:
 https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
@@ -276,8 +208,6 @@ Parâmetros para GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transac
 **Authorization**             No *header*, palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 **idtransação**               **id** (*UUID*) da transação de prova de vida
 ============================  ======================================================================
-
-O resultado em formato JSON depende se o **id** utilizado for de uma `Transação simplificada da Prova de vida`_ ou de uma `Transação com verificação do selo de Biometria Facial`_.
 
 Exemplos de Resultado:
 
@@ -302,16 +232,16 @@ Response: **200**
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
        "selogovbr": {
     
-       "reusar_apartir": "2019-06-16T03:35.083677-03:00",
+       "reusar_apartir": "2021-04-10T14:14.083677-03:00",
        "disponivel": true,
-       "data": "2021-04-23T15:34:51-03:00",
+       "data": "2021-05-23T15:34:51-03:00",
        "usado": true
     },
        "resposta": {
        "autorizado": true,
-       "data": "2021-05-10T15:37:38.083677-03:00"
+       "data": "2021-05-23T15:34:51-03:00"
       },
-     "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
+     "expiracao_em": "2021-06-10T16:14:38.083677-03:00",
      "categoria": "PV"
   } 
 
@@ -335,26 +265,26 @@ Response: **200**
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
        "selogovbr": {
     
-       "reusar_apartir": "2019-06-16T03:35.083677-03:00",
+       "reusar_apartir": "2021-04-10T14:14.083677-03:00",
        "disponivel": true,
-       "data": "2021-04-23T15:34:51-03:00",
-       "usado": true
+       "data": "2021-03-23T15:34:51-03:00",
+       "usado": false
     },
        "resposta": {
        "autorizado": false,
        "data": "2021-05-10T15:37:38.083677-03:00",
        "motivo_negacao": 1
       },
-    "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
+    "expiracao_em": "2021-06-10T14:14:38.083677-03:00",
     "categoria": "PV"
   }
 
-O valor do atributo "motivo_negacao" é um número de 1 a 4. Abaixo estão os motivos de cada número: 
+O valor do atributo "**motivo_negacao**" é um número de 1 a 4. Abaixo estão os motivos de cada número: 
 
-1 - Usuário escolheu não autorizar;
-2 - Falha na validação biometria Facial;
-3 - Falha na validação dados biográficos;
-4 - Falha na validação de dados biometricos e biográficos.
+1. Usuário escolheu não autorizar;
+2. Falha na validação biometria Facial;
+3. Falha na validação dados biográficos;
+4. Falha na validação de dados biometricos e biográficos.
 
 Enviar mensagens para o usuário
 -------------------------------
@@ -459,8 +389,6 @@ Exemplos de códigos HTTP de erro:
 
 .. |site externo| image:: _images/site-ext.gif
 .. _`codificador para Base64`: https://www.base64decode.org/
-.. _`Transação simplificada da Prova de vida`: iniciarintegracao.html#transacao-simplificada-da-prova-de-vida
-.. _`Transação com verificação do selo de Biometria Facial`: iniciarintegracao.html#transacao-com-verificacao-do-selo-de-biometria-facial
 .. _`OAuth 2.0`: https://oauth.net/2/
 .. _`Login Único`: https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
 
