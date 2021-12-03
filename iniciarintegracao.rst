@@ -19,7 +19,7 @@ Para provar a vida consumindo os serviços da API descrita nesta documentação,
    
    <br>
 
-* Para pessoas que realizarão testes no Aplicativo (Validação Facial), e não constam na base do TSE, deve-se enviar as informações abaixo para cadastro da biometria facial
+* Para pessoas que realizarão testes no Aplicativo (Validação Facial), e **não** constam na base do TSE, deve-se enviar as informações abaixo para cadastro da biometria facial
 
   
   - **Nome**
@@ -30,9 +30,6 @@ Para provar a vida consumindo os serviços da API descrita nesta documentação,
    
    <br>
 
-* Para liberação de acesso ao APP de Homologação, deve-ser enviar a informação:
-
-  - Email do Google ou e-mail AppleID
 
 Essas informações deverão ser encaminhadas para o e-mail: int-provavida-govbr@economia.gov.br, por um representante do órgão ou entidade. O representante ficará responsável pelas credenciais de acesso geradas por integrantes da Secretaria de Governança Digital (SGD) do Ministério da Economia (ME).
 
@@ -53,16 +50,14 @@ https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_cred
 =================  ======================================================================
 **Variável**  	   **Descrição**
 -----------------  ----------------------------------------------------------------------
-**Content-Type**   Tipo do conteúdo da requisição que está sendo enviada. Nesse caso estamos enviando como um *application/json*
-**Authorization**  Informação codificada em *Base64*, no seguinte formato: CLIENT_ID:CLIENT_SECRET (senha de acesso do serviço consumidor)(utilizar `codificador para Base64`_ |site externo|  para gerar codificação). 
+**Authorization**  Palavra **Basic** seguida da informação codificada em *Base64*, no seguinte formato: CLIENT_ID:CLIENT_SECRET (credenciais de acesso)(utilizar `codificador para Base64`_ |site externo|  para gerar codificação). 
 =================  ======================================================================
 
 Exemplo de *header*:
 
 .. code-block:: console
 
-	Content-Type: application/json
-	Authorization: ZWM0MzE4ZDYtZjc5Ny00ZDY1LWI0ZjctMzlhMzNiZjRkNTQ0OkFJSDRoaXBfTUJYcVJkWEVQSVJkWkdBX2dRdjdWRWZqYlRFT2NWMHlFQll4aE1iYUJzS0xwSzRzdUVkSU5FcS1kNzlyYWpaZ3I0SGJuVUM2WlRXV1lJOA==
+	Authorization: Basic ZWM0MzE4ZDYtZjc5Ny00ZDY1LWI0ZjctMzlhMzNiZjRkNTQ0OkFJSDRoaXBfTUJYcVJkWEVQSVJkWkdBX2dRdjdWRWZqYlRFT2NWMHlFQll4aE1iYUJzS0xwSzRzdUVkSU5FcS1kNzlyYWpaZ3I0SGJuVUM2WlRXV1lJOA==
 
 O serviço retornará, em caso de sucesso, no formato JSON, as informações conforme exemplo:
 
@@ -87,9 +82,9 @@ A Transação da Prova de Vida é com suporte a resposta automática utilizando 
 
 A requisição possui o parâmetro "**selogovbr_reuso_em**" no *body*. O valor desse parâmetro é o intervalo de tempo em minutos anterior a data da transação. A Prova de vida será autorizada **automaticamente** caso o usuário tiver feito a validação facial dentro desse intervalo.
 
-A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão é informado via *push notification* no aplicativo "Meu Gov.Br". 
+A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão é informado via *push notification* no aplicativo "Gov.Br". 
 
-Caso a Prova de vida **não** seja autorizada automaticamente, o usuário (cidadão) pode autorizar por confirmação ou por biometria facial no app "Meu Gov.Br".
+Caso a Prova de vida **não** seja autorizada automaticamente, o usuário (cidadão) pode autorizar por confirmação ou por biometria facial no app "Gov.Br".
 
 Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
@@ -246,7 +241,7 @@ Response: **200**
   } 
 
 
-No App "Meu GovBr", a transação da prova de vida também pode ser negada. O motivo da negação pode ser porque o usuário **não** autorizou a validação facial ou porque ele **não** passou na validação. Caso o usuário não autorizar a validação facial, a transação retornará, no formato JSON, as informações conforme exemplo:
+No App "GovBr", a transação da prova de vida também pode ser negada. O motivo da negação pode ser porque o usuário **não** autorizou a validação facial ou porque ele **não** passou na validação. Caso o usuário não autorizar a validação facial, a transação retornará, no formato JSON, as informações conforme exemplo:
 
 Response: **200**
 
@@ -317,7 +312,7 @@ Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta
   } 
 
 
-Ao chamar o serviço, a mensagem é enviada para o usuário, que recebe via *push notification* no aplicativo "Meu GovBr". A mensagem pode ser enviada diretamente ao cidadão (CPF) ou enviada para todos (*broadcast*). Caso seja enviada para **todos**, o parâmetro “**cpf**” não deve ser informado na requisição.
+Ao chamar o serviço, a mensagem é enviada para o usuário, que recebe via *push notification* no aplicativo "GovBr". A mensagem pode ser enviada diretamente ao cidadão (CPF) ou enviada para todos (*broadcast*). Caso seja enviada para **todos**, o parâmetro “**cpf**” não deve ser informado na requisição.
 
 O serviço retornará, em caso de sucesso, o código que identifica unicamente a mensagem (**UUID**), conforme exemplo:
 

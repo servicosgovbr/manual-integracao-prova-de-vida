@@ -13,7 +13,7 @@ Abaixo está uma descrição geral do procedimento da Prova de Vida autorizada a
    :align: center
    :alt: 
 
-2. Aplicação **Cliente** recebe os dados da transação autorizada automaticamente. **Usuário**, abrindo as notificações do aplicativo "Meu Gov.Br", visualiza os dados da Prova de Vida **autorizada**
+2. Aplicação **Cliente** recebe os dados da transação autorizada automaticamente. **Usuário**, abrindo as notificações do aplicativo "Gov.Br", visualiza os dados da Prova de Vida **autorizada**
 
 .. figure:: _images/resultadoPvSelo.png
    :align: center
@@ -45,7 +45,7 @@ Abaixo está uma descrição geral do procedimento da Prova de Vida **não** aut
     :align: center
     :alt:
 
-3. **Usuário**, abrindo as notificações do aplicativo “Meu Gov.Br”, recebe os dados da solicitação, a qual aparece como **pendente**
+3. **Usuário**, abrindo as notificações do aplicativo “Gov.Br”, recebe os dados da solicitação, a qual aparece como **pendente**
 
 4. **Usuário** autoriza solicitação de Prova de Vida
 
