@@ -18,8 +18,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'Roteiro de Integracão da Prova De Vida'
-copyright = '2021, Guilherme'
-author = 'Guilherme'
+copyright = 'Gov.br'
+author = 'Gov.br'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0'
