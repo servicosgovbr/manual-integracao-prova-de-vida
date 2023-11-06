@@ -19,7 +19,7 @@ Para provar a vida consumindo os serviços da API descrita nesta documentação,
    
    <br>
 
-* Para pessoas que realizarão testes no Aplicativo (Validação Facial), e **não** constam na base do TSE, deve-se enviar as informações abaixo para cadastro da biometria facial
+* Para pessoas que realizarão testes no Aplicativo (Validação Facial), deve-se enviar as informações abaixo para cadastro da biometria facial no ambiente de testes
 
   
   - **Nome**
@@ -30,8 +30,19 @@ Para provar a vida consumindo os serviços da API descrita nesta documentação,
    
    <br>
 
+* Para os testes, cada testador deverá criar sua conta no ambiente de testes do login único, no endereço: https://sso.staging.acesso.gov.br/
 
-Essas informações deverão ser encaminhadas para o e-mail: int-provavida-govbr@economia.gov.br, por um representante do órgão ou entidade. O representante ficará responsável pelas credenciais de acesso geradas por integrantes da Secretaria de Governança Digital (SGD) do Ministério da Economia (ME).
+  - Para criar a conta, usar os dados padrão:
+  - **Nome da mãe:** MAMÃE
+  - **Data de nascimento** 01/01/1980
+
+.. raw:: html
+   
+   <br>
+   
+Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do projeto com os testadores.
+
+A integração com o Módulo de Prova de Vida deve ser solicitada por meio do serviço: https://www.gov.br/governodigital/integrarprodutoid
 
 
 Métodos e interfaces de integração
