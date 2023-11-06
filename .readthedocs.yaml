@@ -13,7 +13,7 @@ build:
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
-  configuration: main/conf.py
+  configuration: conf.py
 
 
 # We recommend specifying your dependencies to enable reproducible builds:
