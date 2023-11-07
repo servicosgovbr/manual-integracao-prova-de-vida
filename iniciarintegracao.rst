@@ -29,33 +29,14 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
 .. raw:: html
    
    <br>
-
-
    
-Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do projeto com os testadores.
 
-O Swagger com os detalhes dos apis dos serviços estão neste endereço: https://h.meugov.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
-
-Atenção! Utilize sempre a última versão das APIs.
-
-
-* Depois disso, para cada pessoa que for realizar testes no Aplicativo (validação facial para Prova de Vida), será necessário enviar uma foto de rosto para cadastro da biometria facial no ambiente de testes, no mesmo serviço listado acima, ou entregar para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
-  
-   - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho 640x480, com rosto centralizado)
-  - Renomear o arquivo da foto com o CPF do testador. Exemplo: 01234567890.jpeg
-
-.. raw:: html
-   
-   <br>
-
-
-   
 Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do Gov.br que vier acompanhar a integração do projeto com os testadores.
 
 O Swagger com os detalhes dos APIs dos serviços de Prova de Vida estão neste endereço: https://h.meugov.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
 
 Atenção! Utilize sempre a última versão das APIs disponível.
->>>>>>> Stashed changes
+
 
 
 
