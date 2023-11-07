@@ -1,5 +1,0 @@
-repos:
--   repo: https://github.com/jorisroovers/gitlint
-    rev:  v0.15.0
-    hooks:
-    -   id: gitlint

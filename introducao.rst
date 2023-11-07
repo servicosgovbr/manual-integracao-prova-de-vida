@@ -1,11 +1,7 @@
-Introdução
+﻿Introdução
 ============
 
-Orgãos públicos eventualmente solicitam que o cidadão realize Prova de vida para renovação de algum benefício. Para a realização da Prova de vida, pode ser utilizada API de transação, a qual possibilita que usuários selecionados realizem sua Validação Facial por meio do aplicativo `gov.br`_ |site externo|.
+Este documento é o elemento para orientar a integração da Plataforma de Autenticação Digital do Cidadão – Login Único a qualquer ambiente. A partir de agora, será feita uma revisão sobre a arquitetura de serviço e alguns conceitos utilizados pela Plataforma, além de uma explicação sobre procedimentos administrativos essenciais para autorizar o acesso à Plataforma.
 
-Este documento é o manual para orientar a integração via serviço de Prova de vida a qualquer ambiente. Será informado como funcionam as transações de Prova de Vida, assim como os procedimentos para clientes interessados solicitarem a integração.
+Este documento contém as formas de chamadas a operações, parâmetros e métodos de integração, e, por último, os procedimentos para permitir a conectividade entre os ambientes de implantação.
 
-Este documento também contém as formas de chamadas a transações, parâmetros e métodos de integração.
-
-.. _`gov.br`: https://www.gov.br/pt-br/apps/meu-gov.br
-.. |site externo| image:: _images/site-ext.gif
