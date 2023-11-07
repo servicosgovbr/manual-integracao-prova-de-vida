@@ -10,7 +10,4 @@ nodeenv==1.5.0
 pre-commit==2.11.1
 python-dateutil==2.8.1
 PyYAML==5.4.1
-sh==1.14.1
-six==1.15.0
-toml==0.10.2
-virtualenv==20.4.2
+
