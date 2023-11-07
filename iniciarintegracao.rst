@@ -4,31 +4,11 @@ Iniciando a Integração
 Procedimentos para a Integração
 +++++++++++++++++++++++++++++++
 
-É possível provar que um cidadão está vivo **sem** usar as transações (API) da Prova de vida. Nesse caso, utiliza-se o serviço do Login Único, o qual verifica quais selos de confiabilidade a conta do cidadão possui. Para realizar a Prova de vida dessa forma, a aplicação cliente deve estar **obrigatoriamente** integrada ao sistema do `Login Único`_ |site externo|. 
+A integração com o Módulo de Prova de Vida deve ser solicitada por meio do serviço: https://www.gov.br/governodigital/integrarprodutoid
 
-Para provar a vida consumindo os serviços da API descrita nesta documentação, há necessidade de liberar o ambiente de **homologação** para que a aplicação cliente possa utilizar. Essa liberação ocorre por meio do envio das informações listadas abaixo:
+Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a um Gerente de relacionamento e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
 
 
-* Credenciais de acesso aos serviços de Homologação
-
-  - **CPF** de um representante do orgão ou entidade dona do serviço a ser integrado
-  - **E-mail** do representante do orgão ou entidade 
-  - **CPNJ** do orgão ou entidade
-
-.. raw:: html
-   
-   <br>
-
-* Para pessoas que realizarão testes no Aplicativo (Validação Facial), deve-se enviar as informações abaixo para cadastro da biometria facial no ambiente de testes
-
-  
-  - **Nome**
-  - **CPF**
-  - **Foto** no formato 3X4
-
-.. raw:: html
-   
-   <br>
 
 * Para os testes, cada testador deverá criar sua conta no ambiente de testes do login único, no endereço: https://sso.staging.acesso.gov.br/
 
@@ -39,10 +19,24 @@ Para provar a vida consumindo os serviços da API descrita nesta documentação,
 .. raw:: html
    
    <br>
+
+* Depois disso, para cada pessoa que for realizar testes no Aplicativo (Validação Facial para Prova de Vida), deve-se enviada uma foto de rosto para cadastro da biometria facial no ambiente de testes, no mesmo serviço listado acima, ou para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
+  
+  - **CPF**
+  - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho 640x480, com rosto centralizado)
+  - Renomar o arquivo da foto com o CPF do testador. Exemplo: 01234567890.jpeg
+
+.. raw:: html
+   
+   <br>
+
+
    
 Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do projeto com os testadores.
 
-A integração com o Módulo de Prova de Vida deve ser solicitada por meio do serviço: https://www.gov.br/governodigital/integrarprodutoid
+O Swagger com os detalhes dos apis dos serviços estão neste endereço: https://h.meugov.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
+Atenção! Utilize sempre a última versão das APIs.
+
 
 
 Métodos e interfaces de integração
