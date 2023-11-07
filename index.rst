@@ -1,20 +1,22 @@
-.. Roteiro de Integração da Assinatura Eletrônica master file, created by
-   sphinx-quickstart on Mon Feb 18 09:35:23 2019.
+.. roteiro-integracao-prova-de-vida documentation master file, created by
+   sphinx-quickstart on Thu May 20 12:53:46 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Roteiro de integração da API de Assinatura Eletrônica GOV.BR
-=============================================================
+Roteiro de Integracão da Prova de Vida
+=======================================
 
 .. toctree::
    :maxdepth: 3
-   :caption: Legislação e conceitos
+   :caption: Conceitos
 
    introducao
+   funcionamento
+
+
 
 .. toctree::
    :maxdepth: 3
-   :caption: Informações técnicas para integração
+   :caption: Informações Técnicas
 
    iniciarintegracao
-   

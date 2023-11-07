@@ -17,9 +17,9 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'Roteiro de Integracão API Assinaturas avançadas gov.br'
-copyright = '2021, Lívia'
-author = 'Lívia'
+project = 'Roteiro de Integracão da Prova De Vida'
+copyright = 'Gov.br'
+author = 'Gov.br'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0'
@@ -53,7 +53,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
+# sphinx_rtd_theme
 html_theme = 'sphinx_rtd_theme'
 
 # Add any paths that contain custom static files (such as style sheets) here,
