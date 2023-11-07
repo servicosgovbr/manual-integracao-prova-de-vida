@@ -1,3 +1,6 @@
+sphinx==5.3.0
+sphinx_rtd_theme==1.1.1
+readthedocs-sphinx-search==0.1.1
 appdirs==1.4.4
 arrow==0.17.0
 cfgv==3.2.0
