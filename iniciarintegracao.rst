@@ -6,7 +6,7 @@ Procedimentos para a Integração
 
 A integração com o Módulo de Prova de Vida deve ser solicitada por meio do serviço: https://www.gov.br/governodigital/integrarprodutoid
 
-Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a um Gerente de relacionamento e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
+Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a acesso um Gerente de relacionamento do GOV.BR e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
 
 
 
@@ -20,11 +20,10 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
    
    <br>
 
-* Depois disso, para cada pessoa que for realizar testes no Aplicativo (Validação Facial para Prova de Vida), deve-se enviada uma foto de rosto para cadastro da biometria facial no ambiente de testes, no mesmo serviço listado acima, ou para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
+* Depois disso, para cada pessoa que for realizar testes no Aplicativo (Validação Facial para Prova de Vida), será necessário enviar uma foto de rosto para cadastro da biometria facial no ambiente de testes/homologação, no mesmo serviço listado acima, ou para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
   
-  - **CPF**
   - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho 640x480, com rosto centralizado)
-  - Renomar o arquivo da foto com o CPF do testador. Exemplo: 01234567890.jpeg
+  - Renomear o arquivo da foto com o CPF do testador. Exemplo: 01234567890.jpeg
 
 .. raw:: html
    
@@ -35,6 +34,7 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
 Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do projeto com os testadores.
 
 O Swagger com os detalhes dos apis dos serviços estão neste endereço: https://h.meugov.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
+
 Atenção! Utilize sempre a última versão das APIs.
 
 
