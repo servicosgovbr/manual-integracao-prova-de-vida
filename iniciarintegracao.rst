@@ -6,12 +6,8 @@ Procedimentos para a Integração
 
 A integração com o Módulo de Prova de Vida deve ser solicitada por meio do serviço: https://www.gov.br/governodigital/integrarprodutoid
 
-<<<<<<< Updated upstream
-Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a acesso um Gerente de relacionamento do GOV.BR e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
-=======
-Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá acesso a um Gerente de relacionamento do GOV.BR e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
->>>>>>> Stashed changes
 
+Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a acesso um Gerente de relacionamento do GOV.BR e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
 
 
 * Para os testes, cada testador deverá criar sua conta no ambiente de testes do login único, no endereço: https://sso.staging.acesso.gov.br/
@@ -23,7 +19,7 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
 .. raw:: html
    
    <br>
-<<<<<<< Updated upstream
+
 
 * Depois disso, para cada pessoa que for realizar testes no Aplicativo (Validação Facial para Prova de Vida), será necessário enviar uma foto de rosto para cadastro da biometria facial no ambiente de testes/homologação, no mesmo serviço listado acima, ou para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
   
@@ -41,7 +37,7 @@ Uma versão do aplicativo de testes para Android será compartilhada pelo Gerent
 O Swagger com os detalhes dos apis dos serviços estão neste endereço: https://h.meugov.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
 
 Atenção! Utilize sempre a última versão das APIs.
-=======
+
 
 * Depois disso, para cada pessoa que for realizar testes no Aplicativo (validação facial para Prova de Vida), será necessário enviar uma foto de rosto para cadastro da biometria facial no ambiente de testes, no mesmo serviço listado acima, ou entregar para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
   
