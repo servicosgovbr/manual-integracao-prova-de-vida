@@ -9,5 +9,4 @@ identify==2.1.1
 nodeenv==1.5.0
 pre-commit==2.11.1
 python-dateutil==2.8.1
-PyYAML==5.4.1
 
