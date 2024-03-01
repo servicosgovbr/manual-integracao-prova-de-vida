@@ -132,7 +132,7 @@ Exemplo de *body*:
           "nome": "Secretaria de Governo Digital",
           "servico": "AppGovBr"
          },
-        "cpf": "01534562567",
+        "cpf": "99999999999",
         "motivo": "prova de vida para obtenção de selo",
         "tipo": "B",
         "selogovbr_reuso_em": "999999",
@@ -167,7 +167,7 @@ Response: **201**
        "nome": "Secretaria de Governo Digital",
        "servico": "AppGovBr"
     },
-       "cpf": "01534562567",
+       "cpf": "99999999999",
        "motivo": "solicitação de prova de vida para liberação de benefício",
        "tipo": "B",
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
@@ -227,7 +227,7 @@ Response: **200**
        "nome": "Secretaria de Governo Digital",
        "servico": "AppGovBr"
     },
-       "cpf": "01534562567",
+       "cpf": "99999999999",
        "motivo": "solicitação de prova de vida para liberação de benefício",
        "tipo": "B",
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
@@ -260,7 +260,7 @@ Response: **200**
        "nome": "Secretaria de Governo Digital",
        "servico": "AppGovBr"
     },
-       "cpf": "01534562567",
+       "cpf": "99999999999",
        "motivo": "solicitação de prova de vida para liberação de benefício",
        "tipo": "B",
        "criado_em": "2021-05-10T14:14:38.083677-03:00",
