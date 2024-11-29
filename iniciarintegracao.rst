@@ -394,5 +394,9 @@ Exemplos de códigos HTTP de erro:
 .. _`Login Único`: https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
 
 
+Roteiro para a concessão da homologação
++++++++++++++++++++++++++++++++++++++++
 
-  
+.. figure:: _images/checklist_homologacao.png
+   :align: center
+   :alt: 
