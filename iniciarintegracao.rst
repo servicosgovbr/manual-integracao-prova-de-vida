@@ -397,6 +397,37 @@ Exemplos de códigos HTTP de erro:
 Roteiro para a concessão da homologação
 +++++++++++++++++++++++++++++++++++++++
 
+Roteiro para a concessão da homologação da aplicação integrada à API de Prova de Vida
+-------------------------------------------------------------------------------------
+
+=====================================================================================  
+ Objetivo geral: Verificar se a integração do sistema cliente à API Prova de Vida GOV.BR está funcionando corretamente e ocorreu em conformidade com as orientações do roteiro de integração e os requisitos de homologação estabelecidos pela plataforma GOV.BR, estando apta a receber a liberação para operar em ambiente de produção.
+===================================================================================== 
+
+=================================  ======================================================================
+**Lista de Verificação**          **Esclarecimentos complementares**
+---------------------------------  ----------------------------------------------------------------------
+1 - Demonstrar o envio da 
+requisição da Prova de Vida no 
+sistema cliente.                    Etapa 1: Verificar como ocorre a requisição de um procedimento de Prova de Vida entre o sistema do cliente e o API GOV.BR, demonstrando a transmissão dos dados, incluindo prazos e CPF, para convocações ao Prova de Vida.  Essa etapa envolve a demonstração do ponto de vista do órgão que solicitou a integração e apresentará o passo-a-passo da comunicação realizada nos “bastidores” do sistema já integrado. A demonstração pode ser realizada pela web ou pelo aplicativo móvel; 
+ 
+                                    * Antes da etapa 2, deve ser verificado se o órgão demandante optou, ou não, pelo “aproveitamento de selo”, que implica em tornar a Prova de Vida desnecessária caso o usuário final (público-alvo) tenha utilizado outra verificação de biometria vinculada ao GOV.BR dentro de um período estipulado pelo órgão demandante na configuração da integração. Ex.: Se obteve a nova CIN no período de 01 mês antes da data da comprovação de vida, pode não ser necessário passar pela Prova de Vida. 
+ 
+                                    Caso tenha optado pelo um aproveitamento de selo, simular o recebimento do informe de biometria recente de um usuário final e demonstrar o status do dado recebido da API no sistema cliente (alinhar uma simulação com a equipe técnica antes da reunião). 
+
+
+---------------------------------  ----------------------------------------------------------------------
+
+---------------------------------  ----------------------------------------------------------------------
+
+---------------------------------  ----------------------------------------------------------------------
+
+---------------------------------  ----------------------------------------------------------------------
+
+---------------------------------  ----------------------------------------------------------------------
+
+=================================  ======================================================================
+
 .. figure:: _images/checklist_homologacao.png
    :align: center
    :alt: 
