@@ -23,7 +23,7 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
 
 * Depois disso, para cada pessoa que for realizar testes no Aplicativo (Validação Facial para Prova de Vida), será necessário enviar uma foto de rosto para cadastro da biometria facial no ambiente de testes/homologação, no mesmo serviço listado acima, ou para o Gerente de relacionamento que for designado para acompanhar o projeto de integração.
   
-  - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho 640x480, com rosto centralizado)
+  - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho 480x640 ou 750x1000, com rosto centralizado)
   - Renomear o arquivo da foto com o CPF do testador. Exemplo: 01234567890.jpeg
 
 .. raw:: html
