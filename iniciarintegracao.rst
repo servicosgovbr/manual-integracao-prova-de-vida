@@ -394,9 +394,46 @@ Exemplos de códigos HTTP de erro:
 .. _`Login Único`: https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
 
 
-Roteiro para a concessão da homologação
-+++++++++++++++++++++++++++++++++++++++
+Roteiro para a concessão da homologação da aplicação integrada à API de Prova de Vida
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+.. note::
 
-.. figure:: _images/checklist_homologacao.png
-   :align: center
-   :alt: 
+  **Objetivo geral**: Verificar se a integração do sistema cliente à API Prova de Vida GOV.BR está funcionando corretamente e ocorreu em conformidade com as orientações do roteiro de integração e os requisitos de homologação estabelecidos pela plataforma GOV.BR, estando apta a receber a liberação para operar em ambiente de produção.
+
+  **Lista de Verificação e esclarecimentos complementares**
+
+  **1 - Demonstrar o envio da requisição da Prova de Vida no sistema cliente:**
+
+  Verificar como ocorre a requisição de um procedimento de Prova de Vida entre o sistema do cliente e o API GOV.BR, demonstrando a transmissão dos dados, incluindo prazos e CPF, para convocações ao Prova de Vida.  Essa etapa envolve a demonstração do ponto de vista do órgão que solicitou a integração e apresentará o passo-a-passo da comunicação realizada nos “bastidores” do sistema já integrado. A demonstração pode ser realizada pela web ou pelo aplicativo móvel; 
+ 
+  Antes da etapa 2, deve ser verificado se o órgão demandante optou, ou não, pelo “aproveitamento de selo”, que implica em tornar a Prova de Vida desnecessária caso o usuário final (público-alvo) tenha utilizado outra verificação de biometria vinculada ao GOV.BR dentro de um período estipulado pelo órgão demandante na configuração da integração. Ex.: Se obteve a nova CIN no período de 01 mês antes da data da comprovação de vida, pode não ser necessário passar pela Prova de Vida. 
+ 
+  Caso tenha optado pelo um aproveitamento de selo, simular o recebimento do informe de biometria recente de um usuário final e demonstrar o status do dado recebido da API no sistema cliente (alinhar uma simulação com a equipe técnica antes da reunião). 
+
+  **2 - Demonstrar a jornada do usuário visualizando a requisição no aplicativo e efetuando a Prova de Vida.**
+
+  Verificar a “jornada do usuário” do sistema ao utilizar o aplicativo móvel para a realização da Prova de Vida.  Essa etapa envolve a demonstração da jornada do ponto de vista do usuário final do sistema, apresentando todo o processo de realização de uma Prova de Vida no aplicativo móvel, desde o informe recebido no sistema, passando pela coleta de biometria até a verificação final da identidade. Essa demonstração deve ser feita exclusivamente pelo aplicativo móvel. Nessa etapa deverão ser demonstrados os caminhos: 
+
+   1. Feliz: quando a identidade do usuário é confirmada e ele recebe o aviso de que a operação foi concluída com sucesso; 
+   2. Infeliz: quando a identidade não é confirmada e ele recebe o aviso pertinente; 
+   3. Interrompido*: quando a operação é cancelada ou rejeitada (intencionalmente ou não). 
+
+  **3 - Demonstrar a monitoração/status da requisição no sistema do órgão, após a realização da prova de vida.**
+
+  Verificar como os dados dos diferentes caminhos são recebidos no sistema cliente e qual o status das operações realizadas.  Esta etapa envolve a apresentação das informações do ponto de vista do órgão demandante. 
+  A demonstração pode ser realizada pela web ou pelo aplicativo móvel (app mobile). 
+
+  **4 - Demonstrar no sistema do órgão, um caso em que o usuário negou a prova de vida digital.**
+
+  O sistema do órgão deve ser capaz de receber a resposta quando a prova de vida foi negada pelo cidadão, 
+
+  Obs.: O órgão precisa buscar ativamente na API as rejeições ocorridas. 
+
+  **5 - Mostrar a configuração parametrizada para o reaproveitamento de selo.**
+
+  Tópico “Resultados esperados do Acesso à Transação da Prova de Vida” deste roteiro.
+
+  **6 - Mostrar a parte de mensageria configurada.**
+
+  Demonstrar a mensagem de sucesso ao realizar a prova de vida, assim como qual foi a mensagem de falha, quando o cidadão não consegue realizar a validação facial com sucesso. A mensagem deve ser clara e com linguagem simples, de forma que o usuário entenda.
+
