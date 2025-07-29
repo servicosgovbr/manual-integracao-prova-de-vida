@@ -33,7 +33,7 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
 
 Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do Gov.br que vier acompanhar a integração do projeto com os testadores.
 
-O Swagger com os detalhes dos APIs dos serviços de Prova de Vida estão neste endereço: https://h.meugov.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
+O Swagger com os detalhes dos APIs dos serviços de Prova de Vida estão neste endereço: https://h.meugov.np.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
 
 Atenção! Utilize sempre a última versão das APIs disponível.
 
@@ -48,10 +48,10 @@ Autenticação
 
 Para que a autenticação aconteça, é preciso chamar serviço com intuito de adquirir um ticket de acesso (*token*) para os serviços protegidos da Prova de vida. O serviço de autenticação segue o padrão `OAuth 2.0`_ |site externo|.
 
-A requisição é feita através de um POST para o endereço: https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+A requisição é feita através de um POST para o endereço: https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 
 Parâmetros do Header para a requisição: 
-https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 
 =================  ======================================================================
 **Variável**  	   **Descrição**
@@ -92,16 +92,16 @@ A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão 
 
 Caso a Prova de vida **não** seja autorizada automaticamente, o usuário (cidadão) pode autorizar por confirmação ou por biometria facial no app "Gov.Br".
 
-Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
+Parâmetros do Header para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
 =================  ======================================================================
 **Variável**       **Descrição**
 -----------------  ----------------------------------------------------------------------
 **Content-Type**   Tipo do conteúdo da requisição que está sendo enviada. Nesse caso estamos enviando como um *application/json*
-**Authorization**  Palavra **Bearer** e o *access_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+**Authorization**  Palavra **Bearer** e o *access_token* da requisição POST do https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 =================  ======================================================================
 
-Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
+Parâmetros do Body para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
 .. code-block:: JSON
 
@@ -189,24 +189,24 @@ Obter dados usando id das Transações
 
 É possível fazer requisição para obter dados das Transações da Prova de vida usando o **id** (*UUID*) retornado pelo serviço:
 
--  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes
+-  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes
 
 Para acessar o serviço que disponibiliza os dados vinculados a uma determinada transação, a aplicação cliente deverá realizar uma requisição por meio do método GET à URL:
-https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
+https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
 
 Exemplo de requisição:
 
 .. code-block:: console
 
-  https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7
+  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7
 
 
-Parâmetros para GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
+Parâmetros para GET https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
 
 ============================  ======================================================================
 **Variável**                  **Descrição**
 ----------------------------  ----------------------------------------------------------------------
-**Authorization**             No *header*, palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+**Authorization**             No *header*, palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 **idtransação**               **id** (*UUID*) da transação de prova de vida
 ============================  ======================================================================
 
@@ -291,18 +291,18 @@ Enviar mensagens para o usuário
 -------------------------------
 
 Para acessar o serviço que envia mensagem ao usuário, a aplicação cliente deverá realizar uma requisição por meio do método POST à URL:
-https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens
+https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta1/mensagens
 
-Parâmetros do Header para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens
+Parâmetros do Header para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta1/mensagens
 
 ============================  ======================================================================
 **Variável**                  **Descrição**
 ----------------------------  ----------------------------------------------------------------------
-**Authorization**             Palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+**Authorization**             Palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 **Content-Type**              Tipo do conteúdo da requisição que está sendo enviada. Nesse caso estamos enviando como um *application/json*
 ============================  ======================================================================
 
-Parâmetros do Body para POST https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens
+Parâmetros do Body para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta1/mensagens
 
 .. code-block:: JSON
 
@@ -334,7 +334,7 @@ Exemplos de requisição:
 
 * Recebe informações de mensagem enviada
   
-  - GET https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
+  - GET https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
 
 .. raw:: html
     
@@ -342,7 +342,7 @@ Exemplos de requisição:
 
 * Deleta mensagem enviada
 
-  - DELETE https://h.meugov.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
+  - DELETE https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta1/mensagens/{id}
 
 
 Resultados Esperados e Erros do Acesso aos Serviços da Prova de Vida
@@ -392,6 +392,22 @@ Exemplos de códigos HTTP de erro:
 .. _`codificador para Base64`: https://www.base64decode.org/
 .. _`OAuth 2.0`: https://oauth.net/2/
 .. _`Login Único`: https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
+
+
+Comunicado sobre Atualizações na API
+++++++++++++++++++++++++++++++++++++
+
+Informamos que a manutenção do conhecimento técnico sobre o funcionamento das APIs disponibilizadas pelo gov.br é de responsabilidade dos órgãos que a utilizam.
+
+Todas as alterações, melhorias ou atualizações na estrutura, nos parâmetros ou nos fluxos das APIs são devidamente registradas e documentadas neste Roteiro de Integração do Login Único.
+
+Dessa forma, é imprescindível que os órgãos usuários acompanhem regularmente o Roteiro de Integração do Login Único, a fim de garantir a conformidade de suas integrações e evitar impactos nos sistemas que consomem as APIs.
+
+A ausência de acompanhamento das atualizações poderá resultar em falhas de integração ou descontinuidade no serviço, não sendo o gov.br responsável por eventuais prejuízos decorrentes da não observância das instruções técnicas atualizadas.
+
+ATENÇÃO:
+
+Os endpoints de homologação da API de prova de vida foram atualizados, as novas integrações devem utilizar o endpoint https://h.meugov.np.estaleiro.serpro.gov.br, o antigo endpoint https://h.meugov.estaleiro.serpro.gov.br, ficará disponível até 31/12/25.
 
 
 Roteiro para a concessão da homologação da aplicação integrada à API de Prova de Vida
