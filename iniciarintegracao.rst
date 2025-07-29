@@ -453,3 +453,12 @@ Roteiro para a concessão da homologação da aplicação integrada à API de Pr
 
   Demonstrar a mensagem de sucesso ao realizar a prova de vida, assim como qual foi a mensagem de falha, quando o cidadão não consegue realizar a validação facial com sucesso. A mensagem deve ser clara e com linguagem simples, de forma que o usuário entenda.
 
+
+Termo de Uso e Aviso de Privacidade.
+++++++++++++++++++++++++++++++++++++
+
+ O órgão fica ciente que, ao integrar os serviços de identidade digital, como o Login Único, Prova de Vida e Assinatura Eletrônica, fica responsável pelo tratamento dos dados dos usuários em conformidade com a LGPD (Lei 13.709/2018). Isso inclui:
+- Controlar o uso dos dados recebidos (ex.: nome, e-mail) e garantir sua correta gestão;
+- Elaborar um Aviso de Privacidade transparente;
+- Fornecer informações claras aos usuários e manter canais para solicitações de privacidade.
+Sugestão: Guia para elaboração do Aviso de Privacidade: https://www.gov.br/governodigital/pt-br/privacidade-e-seguranca/framework-guias-e-modelos
