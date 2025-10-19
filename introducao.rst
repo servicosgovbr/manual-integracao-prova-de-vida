@@ -7,5 +7,5 @@ Este documento é o manual para orientar a integração via serviço de Prova de
 
 Este documento também contém as formas de chamadas a transações, parâmetros e métodos de integração.
 
-.. _`gov.br`: https://www.gov.br/pt-br/apps/meu-gov.br
+.. _`gov.br`: https://www.gov.br/pt-br/apps/app-gov.br
 .. |site externo| image:: _images/site-ext.gif

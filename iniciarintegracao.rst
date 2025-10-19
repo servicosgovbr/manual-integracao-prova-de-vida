@@ -1,14 +1,21 @@
-Iniciando a Integração
-======================
-
 Procedimentos para a Integração
-+++++++++++++++++++++++++++++++
+===============================
 
-A integração com o Módulo de Prova de Vida deve ser solicitada por meio do serviço: https://www.gov.br/governodigital/integrarprodutoid
+Solicitar Credencial do Login Único
++++++++++++++++++++++++++++++++++++
+
+As credenciais para acesso aos ambientes de homologação/teste e produção do serviço de Prova de Vida devem ser solicitadas por meio do `Serviço de Integração aos Produtos do Ecossistema da Identidade Digital GOV.BR`_
+
+Clicar no botão Iniciar e siga os passos apresentados pelo sistema.
+
+.. _`Serviço de Integração aos Produtos do Ecossistema da Identidade Digital GOV.BR`: https://www.gov.br/governodigital/pt-br/estrategias-e-governanca-digital/transformacao-digital/servico-de-integracao-aos-produtos-de-identidade-digital-gov.br
 
 
-Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a acesso um Gerente de relacionamento do GOV.BR e posteriormente terá acesso as chaves do ambiente de testes/homologação. 
+Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida terá a acesso um Gerente de relacionamento do GOV.BR e posteriormente terá acesso as credenciais para a utilização do sistema. 
 
+
+Testes de Prova de Vida
++++++++++++++++++++++++
 
 * Para os testes, cada testador deverá criar sua conta no ambiente de testes do login único, no endereço: https://sso.staging.acesso.gov.br/
 
@@ -23,7 +30,7 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
 
 * Depois disso, para cada pessoa que for realizar testes no Aplicativo (Validação Facial para Prova de Vida), será necessário enviar uma foto de rosto para cadastro da biometria facial no ambiente de testes/homologação, no mesmo serviço listado acima.
   
-  - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho 480x640 ou 750x1000, com rosto centralizado)
+  - **Foto** no formato 3X4 (fundo neutro, formato JPEG, tamanho mínimo 480x640, tamanho máximo 750x1000, com rosto centralizado, sem utilização de acessórios como óculos, chapéu, boné, touca, etc.)
   - Renomear o arquivo da foto com o CPF do testador. Exemplo: 01234567890.jpeg
 
 .. raw:: html
@@ -31,9 +38,9 @@ Por meio dele, o órgão interessado em se integrar ao serviço de Prova de Vida
    <br>
    
 
-Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do Gov.br que vier acompanhar a integração do projeto com os testadores.
+Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do gov.br que vier acompanhar a integração do projeto com os testadores.
 
-O Swagger com os detalhes dos APIs dos serviços de Prova de Vida estão neste endereço: https://h.meugov.np.estaleiro.serpro.gov.br/api/swagger-ui.html#/Autoriza%C3%A7%C3%A3o_de_transa%C3%A7%C3%A3o_-_vbeta4
+O Swagger com os detalhes das APIs dos serviços de Prova de Vida estão neste endereço: https://h.meugov.np.estaleiro.serpro.gov.br/api/swagger-ui.html
 
 Atenção! Utilize sempre a última versão das APIs disponível.
 
@@ -67,6 +74,22 @@ Exemplo de *header*:
 
 O serviço retornará, em caso de sucesso, no formato JSON, as informações conforme exemplo:
 
+==================  ======================================================================
+**Parâmetro**       **Descrição**
+------------------  ----------------------------------------------------------------------
+**access_token**    Token de acesso a serviços protegidos da Prova de vida. 
+**token_type**      O tipo do token gerado. Padrão: Bearer
+**expires_in**      Tempo de vida do token em segundos
+**scope**           Escopos autorizados pelo provedor de autenticação. Padrão: '0'
+**jti**             Identificador único do token, reconhecido internamente pelo provedor de autenticação.
+**cpf**             CPF do responsável técnico
+**cnpj**            CNPJ do órgão 
+**nome_orgao**      Nome do órgão
+**numero_demanda**  Número da demanda
+**servicos**        Serviços
+**email**           E-mail do responsável técnico
+==================  ======================================================================
+
 Response: **200**
 
 .. code-block:: JSON
@@ -92,7 +115,7 @@ A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão 
 
 Caso a Prova de vida **não** seja autorizada automaticamente, o usuário (cidadão) pode autorizar por confirmação ou por biometria facial no app "Gov.Br".
 
-Parâmetros do Header para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes
+Parâmetros do Header para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes
 
 =================  ======================================================================
 **Variável**       **Descrição**
