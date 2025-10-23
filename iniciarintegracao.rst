@@ -38,9 +38,11 @@ Testes de Prova de Vida
    <br>
    
 
-Uma versão do aplicativo de testes para Android será compartilhada pelo Gerente técnico do gov.br que vier acompanhar a integração do projeto com os testadores.
+Uma versão do aplicativo de testes para Android será disponibilizada juntamente com as credenciais, no Serviço de Integração aos Produtos do Ecossistema da Identidade Digital GOV.BR.
+
 
 O Swagger com os detalhes das APIs dos serviços de Prova de Vida estão neste endereço: https://h.meugov.np.estaleiro.serpro.gov.br/api/swagger-ui.html
+
 
 Atenção! Utilize sempre a última versão das APIs disponível.
 
@@ -53,69 +55,93 @@ Métodos e interfaces de integração
 Autenticação
 ------------
 
-Para que a autenticação aconteça, é preciso chamar serviço com intuito de adquirir um ticket de acesso (*token*) para os serviços protegidos da Prova de vida. O serviço de autenticação segue o padrão `OAuth 2.0`_ |site externo|.
 
-A requisição é feita através de um POST para o endereço: https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+A autenticação é realizada por meio da chamada ao serviço responsável por emitir um token de acesso (**access_token**). Esse token deve ser incluído nas requisições subsequentes aos serviços protegidos da Prova de Vida.
+O serviço de autenticação segue o padrão `OAuth 2.0`_ |site externo|.
+
+A requisição é feita através de uma chamada POST para o endereço: https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 
 Parâmetros do Header para a requisição: 
-https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 
 =================  ======================================================================
 **Variável**  	   **Descrição**
 -----------------  ----------------------------------------------------------------------
-**Authorization**  Palavra **Basic** seguida da informação codificada em *Base64*, no seguinte formato: CLIENT_ID:CLIENT_SECRET (credenciais de acesso)(utilizar `codificador para Base64`_ |site externo|  para gerar codificação). 
+**Authorization**  Palavra **Basic** seguida da informação codificada em *Base64*, no seguinte formato: CLIENT_ID:CLIENT_SECRET (credenciais de acesso recebidas na solicitação)(utilizar `codificador para Base64`_ |site externo|  para gerar codificação). 
 =================  ======================================================================
 
 Exemplo de *header*:
 
 .. code-block:: console
 
-	Authorization: Basic ZWM0MzE4ZDYtZjc5Ny00ZDY1LWI0ZjctMzlhMzNiZjRkNTQ0OkFJSDRoaXBfTUJYcVJkWEVQSVJkWkdBX2dRdjdWRWZqYlRFT2NWMHlFQll4aE1iYUJzS0xwSzRzdUVkSU5FcS1kNzlyYWpaZ3I0SGJuVUM2WlRXV1lJOA==
+	Authorization: Basic ZWM0MzE4ZDYtZjc5Ny00ZDY1LWI0ZjctMzlhMzNiZjRkNTQ0OkFJSDRoaXBfTUJYcVJk...
 
-O serviço retornará, em caso de sucesso, no formato JSON, as informações conforme exemplo:
+O serviço retornará, em caso de sucesso, no formato JSON, as informações:
 
 ==================  ======================================================================
 **Parâmetro**       **Descrição**
 ------------------  ----------------------------------------------------------------------
 **access_token**    Token de acesso a serviços protegidos da Prova de vida. 
-**token_type**      O tipo do token gerado. Padrão: Bearer
-**expires_in**      Tempo de vida do token em segundos
-**scope**           Escopos autorizados pelo provedor de autenticação. Padrão: '0'
+**token_type**      O tipo do token gerado. Padrão: Bearer.
+**expires_in**      Tempo de vida do token em segundos.
+**scope**           Escopos autorizados pelo provedor de autenticação. Padrão: '*'.
 **jti**             Identificador único do token, reconhecido internamente pelo provedor de autenticação.
-**cpf**             CPF do responsável técnico
-**cnpj**            CNPJ do órgão 
-**nome_orgao**      Nome do órgão
-**numero_demanda**  Número da demanda
-**servicos**        Serviços
-**email**           E-mail do responsável técnico
+**cnpj**            CNPJ do órgão que solicitou o token.
+**nome_orgao**      Nome do órgão que solicitou o token.
+**servicos**        Serviços solicitado, padrão null.
 ==================  ======================================================================
+
+Exemplo de retorno da requisição:
 
 Response: **200**
 
 .. code-block:: JSON
 
-	{ 
-		"access_token": "(Token de acesso a serviços protegidos da Prova de vida.)", 
-		"token_type": "(O tipo do token gerado. Padrão: Bearer)", 
-		"expires_in": "(Tempo de vida do token em segundos.)", 
-		"scope": "(Escopos autorizados pelo provedor de autenticação. Padrão: '*')",
-		"cnpj": "(CNPJ da organização solicitante da Prova de vida.)",
-		"jti": "(Identificador único do token, reconhecido internamente pelo provedor de autenticação.)"
-	} 
+  { 
+     "access_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlBnOGJ...", 
+     "token_type": "bearer", 
+     "expires_in": 900, 
+     "scope": "*",
+     "jti": "41XTccAp10Yl8cLtaeUS_u8YKZ3P5BJr...",
+     "cnpj": "00489828007400",
+     "nome_orgao": "SECRETARIA DE GOVERNO DIGITAL",
+     "servicos": null
+  } 
 
 
 Transação da Prova de Vida
 ---------------------------
 
-A Transação da Prova de Vida é com suporte a resposta automática utilizando selo biométrico GovBr. A resposta da requisição contém informações sobre validação facial feita pelo usuário em um momento anterior à solicitação. Portanto, a solicitação de Prova de vida pode ser **autorizada** automaticamente. 
+A Transação da Prova de Vida é realizada por meio de uma chamada à API de prova de vida, esta transação cria um pedido de Prova de Vida para o cidadão (CPF).
 
-A requisição possui o parâmetro "**selogovbr_reuso_em**" no *body*. O valor desse parâmetro é o intervalo de tempo em minutos anterior a data da transação. A Prova de vida será autorizada **automaticamente** caso o usuário tiver feito a validação facial dentro desse intervalo.
+O cidadão é informado da necessidade de realizar a Prova de Vida, por meio de uma notificação no aplicativo gov.br instalado em seu dispositivo, via *push notification*.
 
-A Transação cria um pedido de Prova de vida para o cidadão (CPF). O Cidadão é informado via *push notification* no aplicativo "Gov.Br". 
+Após receber a notificação o cidadão pode optar por autorizar ou não a prova de vida, caso autorize, será direcionado para realizar a validação facial no aplicativo gov.br.
 
-Caso a Prova de vida **não** seja autorizada automaticamente, o usuário (cidadão) pode autorizar por confirmação ou por biometria facial no app "Gov.Br".
+O órgão emissor da transação, possui a opção da realização automática da prova de vida, esta função é habilitada por meio da utilização do parâmetro **selogovbr_reuso_em**. 
 
-Parâmetros do Header para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes
+
+Parâmetro selogovbr_reuso_em
+----------------------------
+
+O parâmetro **selogovbr_reuso_em** é utilizado para permitir o **reaproveitamento automático** de uma Prova de Vida já realizada pelo cidadão em um período recente.
+
+Esse parâmetro deve ser informado no corpo (body) da requisição e representa um **intervalo de tempo**, em **minutos**, contado **retroativamente a partir da data da transação atual**.
+
+Ao receber a solicitação, o sistema verifica se o cidadão possui uma **validação facial anterior** dentro desse intervalo.
+Se uma Prova de Vida válida for encontrada e estiver dentro do limite definido, o sistema **autoriza automaticamente** a nova transação, **sem exigir nova captura biométrica**.
+
+ - Em resumo, o **selogovbr_reuso_em** define o período máximo (em minutos) para que uma validação facial anterior possa ser considerada **válida e reutilizável** no processamento da Prova de Vida atual.
+
+O parâmetro é **opcional**, mas, quando utilizado corretamente, pode **eliminar a necessidade de uma nova autenticação biométrica**, tornando o processo mais ágil e transparente.
+
+Por exemplo, ao incluir **"selogovbr_reuso_em": 20160** na requisição — equivalente a **duas semanas** —, caso o cidadão já tenha realizado uma Prova de Vida para outro órgão dentro desse período, a transação atual será **autorizada automaticamente**, aproveitando a validação facial anterior, **sem necessidade de nova interação do usuário**.
+
+Se nenhuma validação anterior for encontrada dentro do intervalo configurado, o processo **seguirá o fluxo normal**, notificando o cidadão sobre a necessidade de realizar uma nova Prova de Vida, por validação da biometria facial no aplicativo **gov.br**.
+
+
+A requisição é feita através de uma chamada **POST** para o endereço: https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes
+
+Parâmetros do Header para a requisição:
 
 =================  ======================================================================
 **Variável**       **Descrição**
@@ -124,46 +150,52 @@ Parâmetros do Header para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/
 **Authorization**  Palavra **Bearer** e o *access_token* da requisição POST do https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
 =================  ======================================================================
 
-Parâmetros do Body para POST https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes
+Exemplo de *header*:
 
-.. code-block:: JSON
+.. code-block:: console
 
-  { 
-  "solicitante": {
-          "cnpj": "(CNPJ do Solicitante.)",
-          "nome": "(Orgão Solicitante.)",
-          "servico": "(Nome do Serviço cliente.)"
-         },
-        "cpf": "(CPF do usuário que realizará a Prova de Vida.)",
-        "motivo": "(Motivo da Prova de Vida. Exemplo: Obter benefício previdenciário)",
-        "tipo": "(Tipo da solicitação. Padrão: 'B')",
-        "selogovbr_reuso_em": "(Intervalo de tempo em minutos anterior a data da transação)",
-        "expiracao_em": "(Tempo de vida da transação em minutos)",
-        "mensagem_falha": "(Mensagem apresentada ao usuário no caso de falha na Prova de vida)",
-        "mensagem_sucesso": "(Mensagem apresentada ao usuário no caso de sucesso na Prova de vida)",
-        "categoria": "(Categoria da transação. Valor 'PV' para prova de vida ou valor 'OU' para outros tipos)"
-  } 
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IlBnOGJ1WXgxWUZ0cWV3eUt2UUxteHV2ViIsIn...
 
+
+Parâmetros do Body para a requisição:
+
+======================  ======================================================================
+**Parâmetro**           **Descrição**
+----------------------  ----------------------------------------------------------------------
+**cpf**                 CPF do usuário que realizará a Prova de Vida.
+**solicitante**         Dados do órgão solicitante, CNPJ, nome e serviço.
+**cnpj**                CNPJ do órgão Solicitante.
+**nome**                Nome do órgão Solicitante.
+**servico**             Nome do Serviço cliente.
+**motivo**              Motivo da Prova de Vida. Exemplo: Obter benefício previdenciário
+**tipo**                Tipo da solicitação. Padrão: 'B'
+**expiracao_em**        Tempo de vida da transação em minutos
+**selogovbr_reuso_em**  Intervalo de tempo em minutos anterior a data da transação
+**mensagem_sucesso**    Mensagem apresentada ao usuário no caso de sucesso na Prova de vida
+**mensagem_falha**      Mensagem apresentada ao usuário no caso de falha na Prova de vida
+**categoria**           Categoria da transação. Valor 'PV' para prova de vida ou valor 'OU' para outros tipos
+======================  ======================================================================
 
 Exemplo de *body*:
 
 .. code-block:: JSON
 
   { 
-  "solicitante": {
-          "cnpj": "33.683.111/0001-07",
-          "nome": "Secretaria de Governo Digital",
-          "servico": "AppGovBr"
-         },
-        "cpf": "99999999999",
-        "motivo": "prova de vida para obtenção de selo",
-        "tipo": "B",
-        "selogovbr_reuso_em": "999999",
-        "expiracao_em": "120",
-        "mensagem_falha": "Não foi possível confirmar a prova de vida, volte ao sistema XYZ para obter mais informações",
-        "mensagem_sucesso": "Sua prova de vida foi realizada com sucesso, volte ao sistema XYZ para continuar o processo de autorização",
-        "categoria": "PV"
-  } 
+    "cpf": "12345678900",
+    "solicitante": {
+      "cnpj": "00.489.828/0074-00",
+      "nome": "SECRETARIA DE GOVERNO DIGITAL",
+      "servico": "Sistema de Prova de Vida"
+    },
+    "motivo": "Prova de vida para obter benefício previdenciário",
+    "tipo": "B",
+    "expiracao_em": "120",
+    "selogovbr_reuso_em": "120",
+    "mensagem_falha": "Não foi possível confirmar a prova de vida, volte ao sistema XYZ para obter mais informações",
+    "mensagem_sucesso": "Sua prova de vida foi realizada com sucesso, volte ao sistema XYZ para continuar o processo de autorização",
+    "categoria": "PV"
+  }
 
 Resultados esperados do Acesso à Transação da Prova de Vida
 -----------------------------------------------------------
@@ -172,7 +204,7 @@ A transação retornará, em caso de autorização automática com selo, no form
 
 Response: **201**
 
-.. figure:: _images/exemploRespReqVbeta3.png
+.. figure:: _images/exemploRespReqVbeta4.png
    :align: center
    :alt: 
 
@@ -212,19 +244,19 @@ Obter dados usando id das Transações
 
 É possível fazer requisição para obter dados das Transações da Prova de vida usando o **id** (*UUID*) retornado pelo serviço:
 
--  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes
+-  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes
 
 Para acessar o serviço que disponibiliza os dados vinculados a uma determinada transação, a aplicação cliente deverá realizar uma requisição por meio do método GET à URL:
-https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
+https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes/{idtransacao}
 
 Exemplo de requisição:
 
 .. code-block:: console
 
-  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7
+  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7
 
 
-Parâmetros para GET https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta3/transacoes/{idtransacao}
+Parâmetros para GET https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes/{idtransacao}
 
 ============================  ======================================================================
 **Variável**                  **Descrição**
