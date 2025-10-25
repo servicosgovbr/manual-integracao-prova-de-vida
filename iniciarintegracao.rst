@@ -181,7 +181,7 @@ Exemplo de *body*:
 
 .. code-block:: JSON
 
-  { 
+  { 20712
     "cpf": "12345678900",
     "solicitante": {
       "cnpj": "00.489.828/0074-00",
@@ -192,52 +192,74 @@ Exemplo de *body*:
     "tipo": "B",
     "expiracao_em": "120",
     "selogovbr_reuso_em": "120",
-    "mensagem_falha": "Não foi possível confirmar a prova de vida, volte ao sistema XYZ para obter mais informações",
     "mensagem_sucesso": "Sua prova de vida foi realizada com sucesso, volte ao sistema XYZ para continuar o processo de autorização",
+    "mensagem_falha": "Não foi possível confirmar a prova de vida, volte ao sistema XYZ para obter mais informações",
     "categoria": "PV"
   }
 
 Resultados esperados do Acesso à Transação da Prova de Vida
 -----------------------------------------------------------
 
-A transação retornará, em caso de autorização automática com selo, no formato JSON, as informações conforme exemplo:
-
-Response: **201**
-
-.. figure:: _images/exemploRespReqVbeta4.png
-   :align: center
-   :alt: 
-
-
-Caso o usuário realizar validação facial **antes** da data definida no atributo "**reusar_apartir**", a transação **não** é autorizada automaticamente, e retornará, no formato JSON as informações conforme exemplo:
+Em caso de autorização automática da Prova de Vida, utilizando o parâmetro **selogovbr_reuso_em**, a transação retornará, em formato JSON, as informações conforme o exemplo abaixo.
 
 Response: **201**
 
 .. code-block:: JSON
 
-  { 
-       "id": "0a4f7059-78b3-1b16-8179-56713d547f8a",
-       "solicitante": {
-       "cnpj": "33.683.111/0001-07",
-       "nome": "Secretaria de Governo Digital",
-       "servico": "AppGovBr"
+  {
+    "id": "0ab895bd-99de-17dd-819a-1751acb02036",
+    "tipo": "B",
+    "solicitante": {
+        "cnpj": "00.489.828/0074-00",
+        "nome": "SECRETARIA DE GOVERNO DIGITAL",
+        "servico": "AcessoGov"
     },
-       "cpf": "99999999999",
-       "motivo": "solicitação de prova de vida para liberação de benefício",
-       "tipo": "B",
-       "criado_em": "2021-05-10T14:14:38.083677-03:00",
-       "expiracao_em": "2021-05-10T16:14:38.083677-03:00",
-       "selogovbr": {
-    
-       "reusar_apartir": "2021-04-10T14:38.083677-03:00",
-       "disponivel": true,
-       "data": "2021-03-15T15:34:51-03:00",
-       "usado": false
+    "cpf": "12345678900",
+    "motivo": "Prova de vida",
+    "criado_em": "2025-10-24T15:53:33.627642002-03:00",
+    "categoria": "PV",
+    "selogovbr": {
+        "reusar_apartir": "2025-10-10T15:53:33.627642002-03:00",
+        "disponivel": true,
+        "data": "2025-10-23T15:05:39.612-03:00",
+        "usado": true
     },
-       "categoria": "PV"
+    "resposta": {
+        "autorizado": true,
+        "data": "2025-10-24T15:53:33.627642002-03:00"
+    },
+    "expiracao_em": "2025-10-24T17:53:33.627642002-03:00"
+  }
+
+
+Caso o usuário tenha realizado uma validação facial **antes** da data definida no atributo "**reusar_apartir**", a transação **não** será autorizada automaticamente e retornará, em formato JSON, as informações conforme o exemplo abaixo.
+
+Response: **201**
+
+.. code-block:: JSON
+
+  {
+    "id": "0ab895bd-99de-17dd-819a-1751acb02036",
+    "tipo": "B",
+    "solicitante": {
+        "cnpj": "00.489.828/0074-00",
+        "nome": "SECRETARIA DE GOVERNO DIGITAL",
+        "servico": "AcessoGov"
+    },
+    "cpf": "12345678900",
+    "motivo": "Prova de vida",
+    "criado_em": "2025-10-24T16:04:55.031350756-03:00",
+    "categoria": "PV",
+    "selogovbr": {
+        "reusar_apartir": "2025-10-24T16:03:55.031350756-03:00",
+        "disponivel": true,
+        "data": "2025-10-23T15:05:39.612-03:00",
+        "usado": false
+    },
+    "expiracao_em": "2025-10-24T18:04:55.031350756-03:00"
   } 
 
-No exemplo acima, como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo RESPOSTA.
+No exemplo acima, como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo **RESPOSTA**.
 
 Obter dados usando id das Transações
 ------------------------------------
