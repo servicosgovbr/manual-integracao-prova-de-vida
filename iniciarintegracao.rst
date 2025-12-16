@@ -1,8 +1,8 @@
 Procedimentos para a Integração
 ===============================
 
-Solicitar Credencial do Login Único
-+++++++++++++++++++++++++++++++++++
+Solicitar Credencial de Prova de Vida
++++++++++++++++++++++++++++++++++++++
 
 As credenciais para acesso aos ambientes de homologação/teste e produção do serviço de Prova de Vida devem ser solicitadas por meio do `Serviço de Integração aos Produtos do Ecossistema da Identidade Digital GOV.BR`_
 
