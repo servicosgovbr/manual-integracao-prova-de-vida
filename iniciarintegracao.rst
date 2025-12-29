@@ -261,6 +261,39 @@ Response: **201**
 
 No exemplo acima, como a transação **não** foi autorizada automaticamente, o JSON retornado **não** apresenta o atributo **RESPOSTA**.
 
+Caso o usuário não possua biometria cadastrada em nehuma das bases de dados utilizadas, a transação retornará, em formato JSON, as informações conforme o exemplo abaixo.
+
+Response: **201**
+
+.. code-block:: JSON
+
+  {
+    "id": "0ab084d4-9ada-1987-819a-67325d4203d7",
+    "tipo": "B",
+    "solicitante": {
+        "cnpj": "00.489.828/0074-00",
+        "nome": "SECRETARIA DE GOVERNO DIGITAL",
+        "servico": "Sistema de Prova de Vida"
+    },
+    "cpf": "12345678900",
+    "motivo": "Prova de vida para obter benefício previdenciário",
+    "criado_em": "2025-12-28T20:24:45.987071822-03:00",
+    "categoria": "PV",
+    "selogovbr": {
+        "reusar_apartir": "2025-12-28T18:24:45.987071822-03:00",
+        "disponivel": false,
+        "usado": false
+    },
+    "cancelamento": {
+        "codigo": "SEMBIOM",
+        "motivo": "Dados biográficos inexistentes para o cpf informado",
+        "cancelada_em": "2025-12-28T20:24:48.832712209-03:00"
+    },
+    "expiracao_em": "2025-12-28T22:24:45.987071822-03:00"
+  }
+
+No exemplo acima, a transação apresenta o atributo **cancelamento**, com o código **SEMBIOM**, indicando que não foi encontrada biometria.
+
 Obter dados usando id das Transações
 ------------------------------------
 
@@ -363,6 +396,116 @@ O valor do atributo "**motivo_negacao**" é um número de 1 a 4. Abaixo estão o
 2. Falha na validação biometria Facial;
 3. Falha na validação dados biográficos;
 4. Falha na validação de dados biometricos e biográficos.
+
+Cancelamento de transação
+-------------------------
+
+É possível fazer requisições para cancelar Transações da Prova de vida usando o **id** (*UUID*) retornado pelo serviço:
+
+-  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes
+
+Para acessar o serviço que realiza o cancelamento de uma transação solicitada, a aplicação cliente deverá realizar uma requisição por meio do método PUT à URL:
+
+- https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes/{idtransacao}/cancelar
+
+Exemplo de requisição:
+
+.. code-block:: console
+
+  https://h.meugov.np.estaleiro.serpro.gov.br/api/vbeta4/transacoes/0a4f7059-78b3-1b16-8179-5746089d7fb7/cancelar
+
+
+Parâmetros para a requisição PUT
+
+============================  ======================================================================
+**Variável**                  **Descrição**
+----------------------------  ----------------------------------------------------------------------
+**Accept**                    application/json
+**Authorization**             No *header*, palavra **Bearer** e o *acess_token* da requisição POST do https://h.meugov.np.estaleiro.serpro.gov.br/auth/oauth/token?grant_type=client_credentials
+============================  ======================================================================
+
+Em caso de sucesso ao se realizar a transação de cancelamento, é retornado apenas o código 200, sem retorno de json.
+
+
+Ao se consultar uma transação **cancelada**, é retornado o atributo **cancelamento**, que possui os campos **codigo, motivo e cancelada_em**.
+
+============================  ======================================================================
+**Código**                    **Motivo**
+----------------------------  ----------------------------------------------------------------------
+**CLIENTE**                   Cliente solicitou o cancelamento. (Quando o órgão que enviou a solicitação de prova de vida, realiza o cancelamento)
+**SEMBIOM**                   Dados biográficos inexistentes para o cpf informado. (Quando não foi encontrada biometria do usuário em nenhuma das bases governamentais utilizadas pelo gov.br.)
+============================  ======================================================================
+
+O campo **cancelada_em**, indica a data e hora em que a transação foi cancelada.
+
+Exemplos de Resultado:
+
+- Transação cancelada pelo órgão solicitante.
+
+
+Response: **200**
+
+.. code-block:: JSON
+
+  {
+    "id": "0ab084d4-9ada-1987-819a-67325d4203d7",
+    "tipo": "B",
+    "solicitante": {
+        "cnpj": "00.489.828/0074-00",
+        "nome": "SECRETARIA DE GOVERNO DIGITAL",
+        "servico": "Sistema de Prova de Vida"
+    },
+    "cpf": "12345678900",
+    "motivo": "Prova de vida para obter benefício previdenciário",
+    "criado_em": "2025-12-28T20:24:45.987071822-03:00",
+    "categoria": "PV",
+    "selogovbr": {
+        "reusar_apartir": "2025-12-28T18:24:45.987071822-03:00",
+        "disponivel": false,
+        "usado": false
+    },
+    "cancelamento": {
+        "codigo": "CLIENTE",
+        "motivo": "Cliente solicitou o cancelamento",
+        "cancelada_em": "2025-12-28T20:43:07.625498-03:00"
+    },
+    "expiracao_em": "2025-12-28T22:24:45.987071822-03:00"
+  }
+
+
+
+- Transação cancelada por biometria não encontrada.
+
+
+Response: **200**
+
+.. code-block:: JSON
+
+  {
+    "id": "0ab084d4-9ada-1987-819a-67325d4203d7",
+    "tipo": "B",
+    "solicitante": {
+        "cnpj": "00.489.828/0074-00",
+        "nome": "SECRETARIA DE GOVERNO DIGITAL",
+        "servico": "Sistema de Prova de Vida"
+    },
+    "cpf": "12345678900",
+    "motivo": "Prova de vida para obter benefício previdenciário",
+    "criado_em": "2025-12-28T20:24:45.987071822-03:00",
+    "categoria": "PV",
+    "selogovbr": {
+        "reusar_apartir": "2025-12-28T18:24:45.987071822-03:00",
+        "disponivel": false,
+        "usado": false
+    },
+    "cancelamento": {
+        "codigo": "SEMBIOM",
+        "motivo": "Dados biográficos inexistentes para o cpf informado",
+        "cancelada_em": "2025-12-28T20:24:48.832712209-03:00"
+    },
+    "expiracao_em": "2025-12-28T22:24:45.987071822-03:00"
+  }
+
 
 Enviar mensagens para o usuário
 -------------------------------
@@ -531,11 +674,15 @@ Roteiro para a concessão da homologação da aplicação integrada à API de Pr
   Demonstrar a mensagem de sucesso ao realizar a prova de vida, assim como qual foi a mensagem de falha, quando o cidadão não consegue realizar a validação facial com sucesso. A mensagem deve ser clara e com linguagem simples, de forma que o usuário entenda.
 
 
-Termo de Uso e Aviso de Privacidade.
-++++++++++++++++++++++++++++++++++++
+Termo de Uso e Aviso de Privacidade
++++++++++++++++++++++++++++++++++++
 
  O órgão fica ciente que, ao integrar os serviços de identidade digital, como o Login Único, Prova de Vida e Assinatura Eletrônica, fica responsável pelo tratamento dos dados dos usuários em conformidade com a LGPD (Lei 13.709/2018). Isso inclui:
+
 - Controlar o uso dos dados recebidos (ex.: nome, e-mail) e garantir sua correta gestão;
+
 - Elaborar um Aviso de Privacidade transparente;
+
 - Fornecer informações claras aos usuários e manter canais para solicitações de privacidade.
+
 Sugestão: Guia para elaboração do Aviso de Privacidade: https://www.gov.br/governodigital/pt-br/privacidade-e-seguranca/framework-guias-e-modelos
